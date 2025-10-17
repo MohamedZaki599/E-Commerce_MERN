@@ -1,11 +1,14 @@
 import express from "express"
 import mongoose from "mongoose"
 import userRoute from "./routes/userRoute.js"
+import { seedInitialProducts } from "./services/productService.js"
+import productRoute from "./routes/productRoute.js"
 
 const app = express()
 const PORT = 3001
 
 app.use(express.json())
+app.use('/images', express.static('src/imagesProducts'))
 mongoose
 	.connect("mongodb://localhost:27017/ecommerce")
 	.then(() => {
@@ -14,7 +17,13 @@ mongoose
 	.catch((error) => {
 		console.log("Error connecting to Mongo", error)
 	})
+
+// Seed the products to the database
+
+seedInitialProducts()
+
 app.use("/user", userRoute)
+app.use("/products", productRoute)
 app.listen(PORT, () => {
 	console.log(`Server running on http://localhost:${PORT}`)
 })
