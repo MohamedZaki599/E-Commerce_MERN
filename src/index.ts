@@ -1,3 +1,4 @@
+import "dotenv/config"
 import express from "express"
 import mongoose from "mongoose"
 import userRoute from "./routes/userRoute.js"
@@ -10,14 +11,12 @@ const PORT = 3001
 
 app.use(express.json())
 app.use("/images", express.static("src/imagesProducts"))
+
+
 mongoose
-	.connect("mongodb://localhost:27017/ecommerce")
-	.then(() => {
-		console.log("Connected to Mongo")
-	})
-	.catch((error) => {
-		console.log("Error connecting to Mongo", error)
-	})
+	.connect(process.env.DATABASE_URL || "")
+	.then(() => console.log("Connected to Mongo"))
+	.catch((error) => console.log("Error connecting to Mongo", error))
 
 // Seed the products to the database
 

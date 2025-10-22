@@ -63,5 +63,5 @@ export const login = async ({ email, password }: LoginParams) => {
 
 const generateJWT = (data: JWTPayload) => {
 	// JWT generation logic will go here
-	return jwt.sign(data, "FfFTMv6ZV33tzwMcjo9k97PHJLCFtuc3")
+	return jwt.sign(data, process.env.JWT_SECRET || "")
 }
