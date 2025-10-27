@@ -4,6 +4,7 @@ import Button from "@mui/material/Button"
 import Box from "@mui/material/Box"
 import { useRef, useState } from "react"
 import { baseURL } from "../constants/baseURL"
+import { useAuth } from "../context/Auth/AuthContext"
 
 const RegisterPage = () => {
 	const [error, setError] = useState<string | null>(null)
@@ -12,13 +13,19 @@ const RegisterPage = () => {
 	const emailRef = useRef<HTMLInputElement>(null)
 	const passwordRef = useRef<HTMLInputElement>(null)
 
+	const { login } = useAuth()
+
 	const onSubmit = async () => {
 		const firstName = firstNameRef.current?.value
 		const lastName = lastNameRef.current?.value
 		const email = emailRef.current?.value
 		const password = passwordRef.current?.value
 
-		console.log(firstName, lastName, email, password)
+		// Validate the Form Data
+		if (!email || !password || !firstName || !lastName) {
+			setError("Please fill in all fields")
+			return
+		}
 
 		// Make API call to register user
 
@@ -41,9 +48,15 @@ const RegisterPage = () => {
 			)
 			return
 		}
-		const data = await res.json()
-		console.log(data)
-		setError(null)
+		const { token } = await res.json()
+
+		if (!token) {
+			setError("Incorrect email or password!")
+			return
+		}
+		// Login the user
+		login(email, token)
+		
 	}
 
 	return (
