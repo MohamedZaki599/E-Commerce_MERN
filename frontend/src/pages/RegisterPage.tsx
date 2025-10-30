@@ -1,17 +1,21 @@
-import { Typography, Container } from "@mui/material"
+import Box from "@mui/material/Box"
+import Typography from "@mui/material/Typography"
+import Container from "@mui/material/Container"
 import TextField from "@mui/material/TextField"
 import Button from "@mui/material/Button"
-import Box from "@mui/material/Box"
 import { useRef, useState } from "react"
-import { baseURL } from "../constants/baseURL"
+import { BASE_URL } from "../constants/baseURL"
 import { useAuth } from "../context/Auth/AuthContext"
+import { useNavigate } from "react-router-dom"
 
 const RegisterPage = () => {
-	const [error, setError] = useState<string | null>(null)
+	const [error, setError] = useState("")
 	const firstNameRef = useRef<HTMLInputElement>(null)
 	const lastNameRef = useRef<HTMLInputElement>(null)
 	const emailRef = useRef<HTMLInputElement>(null)
 	const passwordRef = useRef<HTMLInputElement>(null)
+
+	const navigate = useNavigate()
 
 	const { login } = useAuth()
 
@@ -21,19 +25,17 @@ const RegisterPage = () => {
 		const email = emailRef.current?.value
 		const password = passwordRef.current?.value
 
-		// Validate the Form Data
-		if (!email || !password || !firstName || !lastName) {
-			setError("Please fill in all fields")
+		// Validate the form data
+		if (!firstName || !lastName || !email || !password) {
+			setError("Check submitted data.")
 			return
 		}
 
-		// Make API call to register user
-
-		const res = await fetch(`${baseURL}/user/register`, {
+		// Make the call to API to create the user
+		const response = await fetch(`${BASE_URL}/user/register`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
-				Accept: "application/json",
 			},
 			body: JSON.stringify({
 				firstName,
@@ -42,23 +44,22 @@ const RegisterPage = () => {
 				password,
 			}),
 		})
-		if (!res.ok) {
-			setError(
-				"Unable to register user, Please try different email or password!"
-			)
-			return
-		}
-		const { token } = await res.json()
 
-		if (!token) {
-			setError("Incorrect email or password!")
+		if (!response.ok) {
+			setError("Unable to register user, please try different credientials!")
 			return
 		}
-		// Login the user
-		login(email, token)
-		
+
+		const data = await response.json()
+
+		if (!data || !data.token || !data.user) {
+			setError("Invalid response from server")
+			return
+		}
+
+		login(data.user.firstName, data.user.lastName, data.user.email, data.token)
+		navigate("/")
 	}
-
 	return (
 		<Container>
 			<Box

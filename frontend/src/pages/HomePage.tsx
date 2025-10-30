@@ -4,14 +4,14 @@ import Box from "@mui/material/Box"
 import ProductCard from "../components/ProductCard"
 import { useState, useEffect } from "react"
 import type { Product } from "../types/Product"
-import { baseURL } from "../constants/baseURL"
+import { BASE_URL } from "../constants/baseURL"
 const HomePage = () => {
 	const [products, setProducts] = useState<Product[]>([])
 	const [error, setError] = useState<boolean>(false)
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const res = await fetch(`${baseURL}/products`)
+				const res = await fetch(`${BASE_URL}/products`)
 				const data = await res.json()
 				setProducts(data)
 			} catch {

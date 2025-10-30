@@ -34,7 +34,13 @@ export const register = async ({
 		password: hashedPassword,
 	})
 	await newUser.save()
-	return { data: generateJWT({ firstName, lastName, email }), statusCode: 200 }
+	return { 
+		data: {
+			token: generateJWT({ firstName, lastName, email }),
+			user: { firstName, lastName, email }
+		}, 
+		statusCode: 200 
+	}
 }
 
 interface LoginParams {
@@ -50,11 +56,18 @@ export const login = async ({ email, password }: LoginParams) => {
 	const passwordMatch = await bcrypt.compare(password, findUser.password)
 	if (passwordMatch) {
 		return {
-			data: generateJWT({
-				firstName: findUser.firstName,
-				lastName: findUser.lastName,
-				email: findUser.email,
-			}),
+			data: {
+				token: generateJWT({
+					firstName: findUser.firstName,
+					lastName: findUser.lastName,
+					email: findUser.email,
+				}),
+				user: {
+					firstName: findUser.firstName,
+					lastName: findUser.lastName,
+					email: findUser.email
+				}
+			},
 			statusCode: 200,
 		}
 	}
