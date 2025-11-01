@@ -51,133 +51,136 @@ function Navbar() {
 	}
 
 	return (
-		<AppBar position="static">
-			<Container maxWidth="xl">
-				<Toolbar disableGutters>
-					<Box
-						sx={{
-							display: "flex",
-							flexDirection: "row",
-							justifyContent: "space-between",
-							width: "100%",
-							alignItems: "center",
-						}}
-					>
-						<Button
-							variant="text"
-							sx={{ color: "#fff" }}
-							onClick={() => navigate("/")}
+		<>
+			<AppBar position="fixed">
+				<Container maxWidth="xl">
+					<Toolbar disableGutters>
+						<Box
+							sx={{
+								display: "flex",
+								flexDirection: "row",
+								justifyContent: "space-between",
+								width: "100%",
+								alignItems: "center",
+							}}
 						>
-							<Box
-								sx={{
-									display: "flex",
-									flexDirection: "row",
-									alignItems: "center",
-								}}
+							<Button
+								variant="text"
+								sx={{ color: "#fff" }}
+								onClick={() => navigate("/")}
 							>
-								<AdbIcon sx={{ display: "flex", mr: 1 }} />
-								<Typography
-									variant="h6"
-									noWrap
-									component="a"
+								<Box
 									sx={{
-										mr: 2,
-										display: { xs: "none", md: "flex" },
-										fontFamily: "monospace",
-										fontWeight: 700,
+										display: "flex",
+										flexDirection: "row",
+										alignItems: "center",
 									}}
 								>
-									Tech Hub
-								</Typography>
-							</Box>
-						</Button>
-						<Box
-							gap={4}
-							display="flex"
-							flexDirection="row"
-							alignItems="center"
-							justifyContent="center"
-						>
-							<IconButton aria-label="cart" onClick={handleCart}>
-								<Badge badgeContent={cartItems.length} color="secondary">
-									<ShoppingCart sx={{ color: "#ffffff" }} />
-								</Badge>
-							</IconButton>
-							{isAuthenticated ? (
-								<>
-									<Tooltip title="Open settings">
-										<Box
-											sx={{
-												display: "flex",
-												flexDirection: "row",
-												alignItems: "center",
-												gap: 2,
-												cursor: "pointer",
-											}}
-											onClick={handleOpenUserMenu}
-										>
-											<Typography
-												sx={{
-													color: "#fff",
-													fontWeight: 500,
-												}}
-											>
-												{fullName}
-											</Typography>
-											<Avatar
-												alt={fullName}
-												sx={{
-													bgcolor: "secondary.main",
-													textTransform: "uppercase",
-												}}
-											>
-												{firstName?.charAt(0)}
-											</Avatar>
-										</Box>
-									</Tooltip>
-									<Menu
-										sx={{ mt: "45px" }}
-										id="menu-appbar"
-										anchorEl={anchorElUser}
-										anchorOrigin={{
-											vertical: "top",
-											horizontal: "right",
+									<AdbIcon sx={{ display: "flex", mr: 1 }} />
+									<Typography
+										variant="h6"
+										noWrap
+										component="a"
+										sx={{
+											mr: 2,
+											display: { xs: "none", md: "flex" },
+											fontFamily: "monospace",
+											fontWeight: 700,
 										}}
-										keepMounted
-										transformOrigin={{
-											vertical: "top",
-											horizontal: "right",
-										}}
-										open={Boolean(anchorElUser)}
-										onClose={handleCloseUserMenu}
 									>
-										<MenuItem onClick={handleCloseUserMenu}>
-											<Typography sx={{ textAlign: "center" }}>
-												My Orders
-											</Typography>
-										</MenuItem>
+										Tech Hub
+									</Typography>
+								</Box>
+							</Button>
+							<Box
+								gap={4}
+								display="flex"
+								flexDirection="row"
+								alignItems="center"
+								justifyContent="center"
+							>
+								<IconButton aria-label="cart" onClick={handleCart}>
+									<Badge badgeContent={cartItems.length} color="secondary">
+										<ShoppingCart sx={{ color: "#ffffff" }} />
+									</Badge>
+								</IconButton>
+								{isAuthenticated ? (
+									<>
+										<Tooltip title="Open settings">
+											<Box
+												sx={{
+													display: "flex",
+													flexDirection: "row",
+													alignItems: "center",
+													gap: 2,
+													cursor: "pointer",
+												}}
+												onClick={handleOpenUserMenu}
+											>
+												<Typography
+													sx={{
+														color: "#fff",
+														fontWeight: 500,
+													}}
+												>
+													{fullName}
+												</Typography>
+												<Avatar
+													alt={fullName}
+													sx={{
+														bgcolor: "secondary.main",
+														textTransform: "uppercase",
+													}}
+												>
+													{firstName?.charAt(0)}
+												</Avatar>
+											</Box>
+										</Tooltip>
+										<Menu
+											sx={{ mt: "45px" }}
+											id="menu-appbar"
+											anchorEl={anchorElUser}
+											anchorOrigin={{
+												vertical: "top",
+												horizontal: "right",
+											}}
+											keepMounted
+											transformOrigin={{
+												vertical: "top",
+												horizontal: "right",
+											}}
+											open={Boolean(anchorElUser)}
+											onClose={handleCloseUserMenu}
+										>
+											<MenuItem onClick={handleCloseUserMenu}>
+												<Typography sx={{ textAlign: "center" }}>
+													My Orders
+												</Typography>
+											</MenuItem>
 
-										<MenuItem onClick={handleLogout}>
-											<Typography sx={{ textAlign: "center" }}>
-												Logout
-											</Typography>
-										</MenuItem>
-									</Menu>
-								</>
-							) : (
-								<Button
-									variant="contained"
-									color="success"
-									onClick={handleLogin}
-								>
-									Login
-								</Button>
-							)}
+											<MenuItem onClick={handleLogout}>
+												<Typography sx={{ textAlign: "center" }}>
+													Logout
+												</Typography>
+											</MenuItem>
+										</Menu>
+									</>
+								) : (
+									<Button
+										variant="contained"
+										color="success"
+										onClick={handleLogin}
+									>
+										Login
+									</Button>
+								)}
+							</Box>
 						</Box>
-					</Box>
-				</Toolbar>
-			</Container>
-		</AppBar>
+					</Toolbar>
+				</Container>
+			</AppBar>
+			<Toolbar />
+		</>
 	)
 }
 export default Navbar
