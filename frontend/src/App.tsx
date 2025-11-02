@@ -8,6 +8,8 @@ import RegisterPage from "./pages/RegisterPage"
 import AuthProvider from "./context/Auth/AuthProvider"
 import CartProvider from "./context/Cart/CartProvider"
 import ProtectedRoute from "./components/ProtectedRoute"
+import CheckoutPage from "./pages/CheckoutPage"
+import OrderSuccessPage from "./pages/OrderSuccessPage"
 
 export default function App(): React.JSX.Element {
 	return (
@@ -21,6 +23,8 @@ export default function App(): React.JSX.Element {
 						<Route path="/login" element={<LoginPage />} />
 						<Route element={<ProtectedRoute />}>
 							<Route path="/cart" element={<CartPage />} />
+							<Route path="/checkout" element={<CheckoutPage />} />
+							<Route path="/order-success" element={<OrderSuccessPage />} />
 						</Route>
 					</Routes>
 				</BrowserRouter>
