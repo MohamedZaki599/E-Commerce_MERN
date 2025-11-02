@@ -10,6 +10,8 @@ import CartProvider from "./context/Cart/CartProvider"
 import ProtectedRoute from "./components/ProtectedRoute"
 import CheckoutPage from "./pages/CheckoutPage"
 import OrderSuccessPage from "./pages/OrderSuccessPage"
+import MyOrdersPage from "./pages/MyOrdersPage"
+
 
 export default function App(): React.JSX.Element {
 	return (
@@ -25,6 +27,7 @@ export default function App(): React.JSX.Element {
 							<Route path="/cart" element={<CartPage />} />
 							<Route path="/checkout" element={<CheckoutPage />} />
 							<Route path="/order-success" element={<OrderSuccessPage />} />
+							<Route path="/my-orders" element={<MyOrdersPage />} />
 						</Route>
 					</Routes>
 				</BrowserRouter>
