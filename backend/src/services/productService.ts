@@ -14,11 +14,12 @@ export const deleteAllProducts = async () => {
 }
 
 export const updateProductImageUrls = async () => {
+	const baseUrl = process.env.BASE_URL || "http://localhost:3001"
 	try {
 		const products = await getAllProducts()
 		for (const product of products) {
 			if (!product.image.startsWith("http")) {
-				product.image = `http://localhost:3001/${product.image}`
+				product.image = `${baseUrl}/${product.image}`
 				await product.save()
 			}
 		}
@@ -29,65 +30,66 @@ export const updateProductImageUrls = async () => {
 }
 
 export const seedInitialProducts = async () => {
+	const baseUrl = process.env.BASE_URL || "http://localhost:3001"
 	try {
 		const products = [
 			{
 				title: "MSI Katana GF66",
-				image: "http://localhost:3001/images/MSI Katana GF66.png",
+				image: `${baseUrl}/images/MSI Katana GF66.png`,
 				price: 1100,
 				stock: 10,
 			},
 			{
 				title: "MSI Creator M16",
-				image: "http://localhost:3001/images/MSI Creator M16.png",
+				image: `${baseUrl}/images/MSI Creator M16.png`,
 				price: 1800,
 				stock: 20,
 			},
 			{
 				title: "Lenovo IdeaPad 3",
-				image: "http://localhost:3001/images/Lenovo IdeaPad 3.png",
+				image: `${baseUrl}/images/Lenovo IdeaPad 3.png`,
 				price: 600,
 				stock: 30,
 			},
 			{
 				title: "Lenovo Yoga 7i",
-				image: "http://localhost:3001/images/Lenovo Yoga 7i.png",
+				image: `${baseUrl}/images/Lenovo Yoga 7i.png`,
 				price: 950,
 				stock: 40,
 			},
 			{
 				title: "ASUS ROG Strix G15",
-				image: "http://localhost:3001/images/ASUS ROG Strix G15.png",
+				image: `${baseUrl}/images/ASUS ROG Strix G15.png`,
 				price: 1500,
 				stock: 50,
 			},
 			{
 				title: "ASUS ZenBook 14",
-				image: "http://localhost:3001/images/ASUS ZenBook 14.png",
+				image: `${baseUrl}/images/ASUS ZenBook 14.png`,
 				price: 850,
 				stock: 60,
 			},
 			{
 				title: "HP Pavilion 15",
-				image: "http://localhost:3001/images/HP Pavilion Laptop 15.png",
+				image: `${baseUrl}/images/HP Pavilion Laptop 15.png`,
 				price: 700,
 				stock: 70,
 			},
 			{
 				title: "HP Omen 16",
-				image: "http://localhost:3001/images/HP Omen 16.png",
+				image: `${baseUrl}/images/HP Omen 16.png`,
 				price: 1300,
 				stock: 80,
 			},
 			{
 				title: "Dell XPS 13",
-				image: "http://localhost:3001/images/Dell XPS 13.png",
+				image: `${baseUrl}/images/Dell XPS 13.png`,
 				price: 1400,
 				stock: 90,
 			},
 			{
 				title: "Dell Inspiron 15",
-				image: "http://localhost:3001/images/Dell Inspiron 15.png",
+				image: `${baseUrl}/images/Dell Inspiron 15.png`,
 				price: 550,
 				stock: 100,
 			},
