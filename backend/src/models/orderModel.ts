@@ -1,4 +1,5 @@
-import mongoose, { Schema, ObjectId, Document } from "mongoose"
+import mongoose, { Schema, Document } from "mongoose"
+import type { ObjectId } from "mongoose"
 
 export interface IOrderItem {
 	productTitle: string
